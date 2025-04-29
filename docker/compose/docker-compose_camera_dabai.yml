@@ -7,7 +7,17 @@ services:
       - "/dev/bus/usb:/dev/bus/usb"
     networks:
       - my_bridge_network
-    command: "ros2 launch orbbec_camera dabai_dcw.launch.py"
+    command:
+    - ros2
+    - launch
+    - orbbec_camera
+    - dabai_dcw.launch.py
+    - color_width:=640
+    - color_height:=480
+    - color_fps:=30
+    - depth_width:=640
+    - depth_height:=480
+    - depth_fps:=30
 
   rosbridge:
     image: ghcr.io/screamlab/pros_base_image:0.0.2
