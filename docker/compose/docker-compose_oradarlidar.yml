@@ -1,6 +1,6 @@
 services:
   oradarlidar:
-    image: oralidar:0.0.2
+    image: registry.screamtrumpet.csie.ncku.edu.tw/alianlbj23/oradar_lidar_image:v1.0.2
     env_file:
       - .env
     devices:
