@@ -17,6 +17,7 @@ scripts = [
     "./localization_ydlidar.sh",
     "./camera_astra.sh",
     "./camera_dabai.sh",
+    "./camera_gemini.sh",
     "./rosbridge_server.sh",
     "./gps.sh",
     "./camera_calibration_unity.sh",
