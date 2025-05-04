@@ -7,7 +7,13 @@ services:
       - "/dev/bus/usb:/dev/bus/usb"
     networks:
       - my_bridge_network
-    command: "ros2 launch orbbec_camera gemini_ew.launch.py"
+    command:
+    - ros2
+    - launch
+    - orbbec_camera
+    - gemini_ew.launch.py
+    - color_fps:=30
+    - depth_fps:=30
 
   rosbridge:
     image: ghcr.io/screamlab/pros_base_image:0.0.2
