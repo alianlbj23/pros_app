@@ -19,6 +19,7 @@ scripts = [
     "./camera_dabai.sh",
     "./camera_gemini.sh",
     "./rosbridge_server.sh",
+    "./ros_topic_bridge.sh",
     "./gps.sh",
     "./camera_calibration_unity.sh",
 ]

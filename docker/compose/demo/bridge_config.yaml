@@ -1,0 +1,9 @@
+remote_host: 192.168.0.100
+remote_port: 9090
+topics:
+  - remote_topic: /camera/image_raw
+    local_topic: /remote_camera_image
+    message_type: sensor_msgs/msg/Image
+  - remote_topic: /scan
+    local_topic: /remote_scan
+    message_type: sensor_msgs/msg/LaserScan
