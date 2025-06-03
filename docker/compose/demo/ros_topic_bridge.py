@@ -4,7 +4,7 @@ from roslibpy import Ros, Topic
 import yaml
 import importlib
 from std_msgs.msg import Header  # for type hint only
-
+import time
 
 class RemoteTopicBridge(Node):
     def __init__(self, config_path: str):
@@ -53,14 +53,27 @@ class RemoteTopicBridge(Node):
     def republish(self, msg_dict, local_topic_name, publisher, msg_class):
         try:
             ros2_msg = msg_class()
-            for key, value in msg_dict.items():
-                if hasattr(ros2_msg, key):
-                    setattr(ros2_msg, key, value)
-            publisher.publish(ros2_msg)
+            self._fill_ros_msg_fields(ros2_msg, msg_dict)
+            for i in range(5):
+                publisher.publish(ros2_msg)
+                time.sleep(0.1)
+
         except Exception as e:
             self.get_logger().error(
                 f"Failed to republish message on {local_topic_name}: {e}"
             )
+
+    def _fill_ros_msg_fields(self, ros2_msg, msg_dict):
+        for key, value in msg_dict.items():
+            if not hasattr(ros2_msg, key):
+                continue
+            attr = getattr(ros2_msg, key)
+            # 若是巢狀 message（如 Header），要遞迴建立
+            if hasattr(attr, "__slots__") and isinstance(value, dict):
+                self._fill_ros_msg_fields(attr, value)
+            else:
+                setattr(ros2_msg, key, value)
+
 
 
 def main():
